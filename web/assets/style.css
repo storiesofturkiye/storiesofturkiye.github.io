@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: #fce4ec; /* Soft pink background */
+    background-color: #fce4ec;
     background-image: radial-gradient(#f8bbd0 10%, transparent 10%),
       radial-gradient(#f8bbd0 10%, transparent 10%);
     background-size: 40px 40px;
@@ -14,12 +14,35 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    font-family: 'Fredoka', 'Comic Sans MS', cursive, sans-serif;
+    font-family: 'Comic Sans MS', cursive, 'Fredoka', sans-serif;
     overflow: hidden;
 }
 
+/* Ses Kontrol Butonu */
+.audio-control {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    padding: 10px 20px;
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.2s ease;
+}
+
+.audio-control:hover {
+    transform: scale(1.05);
+    background-color: #e65100;
+}
+
 .book-container {
-    /* Responsive flipbook wrapper */
     width: 90vw;
     height: 90vh;
     display: flex;
@@ -30,7 +53,7 @@ body {
 .page {
     background-color: #fff;
     border: 1px solid #e0e0e0;
-    box-shadow: inset -5px 0 10px rgba(0,0,0,0.05); /* Page fold effect */
+    box-shadow: inset -5px 0 10px rgba(0,0,0,0.05);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -51,35 +74,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 30px;
-}
-
-/* Hard cover pages inside flipbook */
-.page[data-density="hard"] {
-    background-color: #ff9800; /* Cheerful orange cover */
-    color: white;
-    border: 4px solid #e65100;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
-}
-
-.page[data-density="hard"] .page-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-}
-
-.cover-title {
-    font-size: 3rem;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    padding: 30px; /* biraz küçültüldü */
 }
 
 .page-text {
-    font-size: 1.2rem; /* Big, readable font for kids */
-    line-height: 2.1;
+    font-size: clamp(1rem, 1.8vw, 1.4rem); /* küçültüldü ve responsive yapıldı */
+    line-height: 1.6;
     font-weight: 500;
     white-space: pre-wrap;
     width: 100%;
@@ -88,24 +88,21 @@ body {
 .page-image {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Don't crop images, keep them visible */
-}
-
-/* Remove padding so image can fill page if needed, but contain keeps it safe */
-.page-image-wrapper {
-    padding: 20px;
+    object-fit: contain;
 }
 
 .page-number {
     position: absolute;
-    bottom: 15px;
-    font-size: 1.2rem;
+    bottom: 10px;
+    font-size: 1rem;
     color: #9e9e9e;
     font-weight: 600;
 }
-.page.--left .page-number {
-    left: 20px;
+
+.page.--left .page-number { 
+    left: 15px; 
 }
-.page.--right .page-number {
-    right: 20px;
+
+.page.--right .page-number { 
+    right: 15px; 
 }
