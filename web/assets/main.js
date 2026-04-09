@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
+
     const pageFlip = new St.PageFlip(
         document.getElementById("book"),
         {
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let isMuted = false;
     const muteBtn = document.getElementById('mute-btn');
 
-    // Sesleri tamamen durduran yardımcı fonksiyon
+    // 🔊 TÜM SESLERİ DURDUR
     function stopAllAudio() {
         document.querySelectorAll('.page-audio').forEach(audio => {
             audio.pause();
@@ -29,50 +30,110 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Mute butonu kontrolü
+    // 🔊 SAYFAYA GÖRE SES ÇAL
+    function playAudioForPage(index) {
+        if (isMuted) return;
+
+        const currentPage = pages[index];
+        if (currentPage) {
+            const audio = currentPage.querySelector('.page-audio');
+            if (audio) {
+                audio.play().catch(() => {});
+            }
+        }
+    }
+
+    // 🔊 MUTE BUTONU
     muteBtn.addEventListener('click', () => {
         isMuted = !isMuted;
         muteBtn.innerText = isMuted ? "🔇 Sesi Aç" : "🔊 Sesi Kapat";
+
         if (isMuted) {
             stopAllAudio();
         } else {
-            // Sesi geri açtığında o anki sayfayı oynatmayı dene
             const currentIndex = pageFlip.getCurrentPageIndex();
             playAudioForPage(currentIndex);
         }
     });
 
-    function playAudioForPage(index) {
-        if (isMuted) return;
-        
-        const currentPage = pages[index];
-        if (currentPage) {
-            const audio = currentPage.querySelector('.page-audio');
-            if (audio) {
-                audio.play().catch(err => console.log("Otomatik oynatma engellendi, etkileşim bekleniyor."));
-            }
+    // 📝 YAZIYI OTOMATİK SIĞDIR
+    function fitText(el) {
+        let fontSize = 20;
+        el.style.fontSize = fontSize + "px";
+
+        while (el.scrollHeight > el.clientHeight && fontSize > 12) {
+            fontSize--;
+            el.style.fontSize = fontSize + "px";
         }
     }
 
-    // Sayfa çevrildiğinde tetiklenen olay
+    function applyFitText() {
+        document.querySelectorAll(".page-text").forEach(el => {
+            fitText(el);
+        });
+    }
+
+    // 🔗 LİNK SENKRONLAMA
+    function updateLinks() {
+        document.querySelectorAll(".YzqVVZ").forEach(card => {
+            const first = card.querySelector(".dynamic-book-link");
+            const second = card.querySelector('a[aria-label="Listen Now"]');
+
+            if (first && second) {
+                second.href = first.href;
+            }
+        });
+    }
+
+    // 📖 SAYFA DEĞİŞİNCE
     pageFlip.on('flip', (e) => {
         stopAllAudio();
         playAudioForPage(e.data);
+
+        setTimeout(() => {
+            applyFitText();
+            updateLinks();
+        }, 100);
     });
+
+    // 🌍 DİL / SELECT DEĞİŞİMİ
+    document.addEventListener("change", function (e) {
+        if (e.target.tagName === "SELECT") {
+            setTimeout(() => {
+                updateLinks();
+                applyFitText();
+            }, 300);
+        }
+    });
+
+    // 👀 DOM DEĞİŞİMLERİNİ İZLE (Wix gibi dinamik sistemler için)
+    const observer = new MutationObserver(() => {
+        updateLinks();
+    });
+
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+        attributes: true
+    });
+
+    // 🚀 İLK YÜKLEME
+    setTimeout(() => {
+        applyFitText();
+        updateLinks();
+    }, 300);
+
 });
 
+function updateLinks() {
+    const cards = document.querySelectorAll(".YzqVVZ");
 
+    cards.forEach(card => {
+        const firstLink = card.querySelector(".dynamic-book-link");
+        const listenBtn = card.querySelector('a[aria-label="Listen Now"]');
 
-function fitText(el) {
-    let fontSize = 20; // başlangıç
-    el.style.fontSize = fontSize + "px";
-
-    while (el.scrollHeight > el.clientHeight && fontSize > 12) {
-        fontSize--;
-        el.style.fontSize = fontSize + "px";
-    }
+        if (firstLink && listenBtn) {
+            listenBtn.href = firstLink.href;
+        }
+    });
 }
-
-document.querySelectorAll(".page-text").forEach(el => {
-    fitText(el);
-});
