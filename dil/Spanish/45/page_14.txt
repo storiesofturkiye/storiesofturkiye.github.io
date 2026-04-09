@@ -1,0 +1,8 @@
+Estrictamente Instrucciones:
+1. FIDELIDAD: Mantener el 100% de la trama original. No añadir personajes o eventos. Simplificar el vocabulario para que sea amigable para los niños sin perder el significado original.
+2. REPARACIÓN DE PDF Y FLUJO: Consolidar líneas rotas o frases fragmentadas causadas por la extracción de PDF en oraciones completas y fluidas. Asegurarse de que el texto esté optimizado para la narración por voz de IA.
+3. DETECCIÓN DE PORTADAS: Identificar cualquier título o subtítulo dentro del texto según su contexto. Para distinguirlos, agregar un punto (.) al final de cada encabezado y mover el texto subsiguiente a una nueva línea.
+4. TÉRMINOS Y GUION: Usar el alfabeto natural para el español. Mantener los nombres propios turcos y términos exactamente como están.
+5. SIN Extras: Responder SOLAMENTE con la historia traducida. No incluir ninguna introducción, notas o explicaciones..
+Halide Edib Adıvar – Estambul.
+En Estambul, Karamel también aprendió sobre Halide Edib Adıvar, una novelista y nacionalista muy importante. Visitó su casa museo y exploró sus obras literarias y sus contribuciones.
