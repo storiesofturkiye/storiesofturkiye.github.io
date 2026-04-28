@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stories of Türkiye — Karamel's Books</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* main.html Temel Stilleri */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #faf7f2;
+    font-family: 'DM Sans', sans-serif;
+    color: #2c2218;
+    line-height: 1.5;
+  }
+
+  /* Header ve Footer için alan belirleyiciler */
+  header, footer {
+    width: 100%;
+    background: #fff;
+    /* Wix benzeri tasarım için yer tutucu stiller */
+  }
+  
+  .site-header {
+    border-bottom: 1px solid #eee;
+    padding: 20px;
+    text-align: center;
+  }
+
+  /* Gövde (Main) Bölümü Stilleri */
+  .books-section {
+    padding: 64px 24px 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .books-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 44px);
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .books-section .subtitle {
+    text-align: center;
+    color: #8a7560;
+    font-size: 15px;
+    margin-bottom: 32px;
+  }
+
+  /* Dil Seçici ve Arama */
+  .language-wrap, .search-wrap {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  #language-select, .search-wrap input {
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1.5px solid #d9cfc4;
+    font-family: inherit;
+  }
+  .search-wrap input {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 40px;
+  }
+
+  /* Kitap Izgarası ve Kartlar */
+  .books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 24px;
+  }
+  .book-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(44,34,24,0.07);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.22s ease;
+  }
+  .book-card:hover { transform: translateY(-4px); }
+  .card-img { width: 100%; aspect-ratio: 1; object-fit: cover; background: #f0ebe3; }
+  .card-body { padding: 12px; text-align: center; }
+  .card-title { font-size: 14px; font-weight: 500; }
+
+  /* Footer Stili */
+  .site-footer {
+    background: #2c2218;
+    color: #fff;
+    padding: 40px 20px;
+    margin-top: 60px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-content">
+    <h1>Stories of Türkiye</h1>
+    <p>Karamel ile Maceraları Keşfedin</p>
+  </div>
+</header>
+
+<main class="books-section">
+  <h2>Karamel'in Kitapları</h2>
+  <p class="subtitle">Keşfetmeye hazır mısınız? Türkiye'nin eşsiz lezzetlerini ve kültürel zenginliğini keşfedin.</p>
+
+  <div class="language-wrap">
+    <label for="language-select">Dil Seçin:</label>
+    <select id="language-select" onchange="renderCards()">
+      <option value="tr">Türkçe</option>
+      <option value="en" selected>English</option>
+      <option value="de">Deutsch</option>
+    </select>
+  </div>
+
+  <div class="search-wrap">
+    <input type="text" id="book-search" placeholder="Kitap ara..." oninput="renderCards()">
+  </div>
+
+  <div id="books-grid" class="books-grid">
+    </div>
+
+  <p id="no-results" style="display:none; text-align:center; padding:40px; color:#8a7560;">Sonuç bulunamadı.</p>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <p>&copy; 2024 Stories of Türkiye. Tüm Hakları Saklıdır.</p>
+  </div>
+</footer>
+
+<script>
+const booksData = [
+  {id: 50, title: 'The Flavors of Türkiye'},
+  {id: 51, title: 'The Famous Bridges of Türkiye'},
+  {id: 52, title: 'Turkish Maritime History'},
+  {id: 53, title: 'Traditional Turkish Village Life'},
+];
+
+const grid = document.getElementById('books-grid');
+const noResults = document.getElementById('no-results');
+const searchInput = document.getElementById('book-search');
+const languageSelect = document.getElementById('language-select');
+
+function renderCards() {
+  const query = searchInput.value.trim().toLowerCase();
+  const selectedLang = languageSelect.value;
+
+  // Mevcut kartları temizle
+  Array.from(grid.children).forEach(el => {
+    if (el !== noResults) el.remove();
+  });
+
+  const filteredBooks = booksData.filter(b => b.title.toLowerCase().includes(query));
+
+  if (filteredBooks.length === 0) {
+    noResults.style.display = 'block';
+    return;
+  }
+
+  noResults.style.display = 'none';
+  
+  filteredBooks.forEach(b => {
+    const a = document.createElement('a');
+    a.className = 'book-card';
+    a.href = `./web/${selectedLang}/${b.id}/index.html`;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.innerHTML = `
+      <img class="card-img" src="./imgs/${b.id}.jpg" alt="${b.title}" loading="lazy">
+      <div class="card-body"><p class="card-title">${b.title}</p></div>
+    `;
+    grid.appendChild(a);
+  });
+}
+
+// Sayfa yüklendiğinde kartları göster
+renderCards();
+</script>
+
+</body>
+</html>

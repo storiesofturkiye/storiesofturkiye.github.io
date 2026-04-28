@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stories of Türkiye — Books</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #faf7f2;
+    font-family: 'DM Sans', sans-serif;
+    color: #2c2218;
+  }
+
+  .books-section {
+    padding: 64px 24px 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .books-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 44px);
+    text-align: center;
+    color: #2c2218;
+    margin-bottom: 8px;
+  }
+
+  .books-section .subtitle {
+    text-align: center;
+    color: #8a7560;
+    font-size: 15px;
+    margin-bottom: 48px;
+  }
+
+  /* Search */
+  .search-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+
+  .search-wrap input {
+    width: 100%;
+    max-width: 420px;
+    padding: 12px 20px;
+    border: 1.5px solid #d9cfc4;
+    border-radius: 40px;
+    background: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: #2c2218;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-wrap input:focus { border-color: #b9935d; }
+  .search-wrap input::placeholder { color: #b0a090; }
+
+  /* Grid */
+  .books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 24px;
+  }
+
+  /* Card */
+  .book-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(44, 34, 24, 0.07);
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .book-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(44, 34, 24, 0.14);
+  }
+
+  .book-card:hover .card-title { color: #b9935d; }
+
+  .card-img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+    background: #f0ebe3;
+  }
+
+  .card-body {
+    padding: 12px 14px 14px;
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: #2c2218;
+    transition: color 0.2s;
+  }
+
+  /* Empty state */
+  .no-results {
+    display: none;
+    grid-column: 1/-1;
+    text-align: center;
+    color: #8a7560;
+    font-size: 15px;
+    padding: 40px 0;
+  }
+
+  @media (max-width: 480px) {
+    .books-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<section class="books-section">
+  <h2>Books</h2>
+  <p class="subtitle">53 audiobooks exploring the culture, history, and landscapes of Türkiye</p>
+
+  <div class="search-wrap">
+    <input type="search" id="book-search" placeholder="Search books…" autocomplete="off">
+  </div>
+
+  <div class="books-grid" id="books-grid">
+    <!-- Cards injected by JS -->
+    <p class="no-results" id="no-results">No books found.</p>
+  </div>
+</section>
+
+<script>
+const books = [
+  {title: 'The Flavors of Türkiye', url: './web/English/1/index.html', img: './imgs/1.jpg'},
+  {title: 'Turkish Musical Instruments', url: './web/English/2/index.html', img: './imgs/2.jpg'},
+  {title: 'Turkish Holidays and Festivals', url: './web/English/3/index.html', img: './imgs/3.jpg'},
+  {title: 'The Enchanting Landscapes of Türkiye', url: './web/English/4/index.html', img: './imgs/4.jpg'},
+  {title: 'Turkish Folklore and Mythology', url: './web/English/5/index.html', img: './imgs/5.jpg'},
+  {title: 'Turkish Handcrafts', url: './web/English/6/index.html', img: './imgs/6.jpg'},
+  {title: 'Turkish History', url: './web/English/7/index.html', img: './imgs/7.jpg'},
+  {title: 'Turkish Sports and Games', url: './web/English/8/index.html', img: './imgs/8.jpg'},
+  {title: 'Turkish Flora and Fauna', url: './web/English/9/index.html', img: './imgs/9.jpg'},
+  {title: 'Turkish Historical and Architectural Landmarks', url: './web/English/10/index.html', img: './imgs/10.jpg'},
+  {title: 'Adventures with Turkish Folk Heroes', url: './web/English/11/index.html', img: './imgs/11.jpg'},
+  {title: 'Turkish Traditional Clothing', url: './web/English/12/index.html', img: './imgs/12.jpg'},
+  {title: 'Turkish Natural Life', url: './web/English/13/index.html', img: './imgs/13.jpg'},
+  {title: 'Turkish Music Culture', url: './web/English/14/index.html', img: './imgs/14.jpg'},
+  {title: 'Turkish Athletes and Their Success', url: './web/English/15/index.html', img: './imgs/15.jpg'},
+  {title: 'Turkish Traditional Arts', url: './web/English/16/index.html', img: './imgs/16.jpg'},
+  {title: 'Turkish History and Important Figures', url: './web/English/17/index.html', img: './imgs/17.jpg'},
+  {title: 'Legendary History of Anatolia', url: './web/English/18/index.html', img: './imgs/18.jpg'},
+  {title: 'Turkish Playgrounds for Kids', url: './web/English/19/index.html', img: './imgs/19.jpg'},
+  {title: 'Turkish Culinary Adventure', url: './web/English/20/index.html', img: './imgs/20.jpg'},
+  {title: 'Türkiye in Winter', url: './web/English/21/index.html', img: './imgs/21.jpg'},
+  {title: 'Türkiye in Fall', url: './web/English/22/index.html', img: './imgs/22.jpg'},
+  {title: 'Türkiye in Summer', url: './web/English/23/index.html', img: './imgs/23.jpg'},
+  {title: 'Türkiye in Spring', url: './web/English/24/index.html', img: './imgs/24.jpg'},
+  {title: 'Exploring Istanbul Seven Hills', url: './web/English/25/index.html', img: './imgs/25.jpg'},
+  {title: 'Exploring Aegean Region', url: './web/English/26/index.html', img: './imgs/26.jpg'},
+  {title: 'Exploring Mediterranean Region', url: './web/English/27/index.html', img: './imgs/27.jpg'},
+  {title: 'Exploring Marmara Region', url: './web/English/28/index.html', img: './imgs/28.jpg'},
+  {title: 'Exploring Central Anatolia Region', url: './web/English/29/index.html', img: './imgs/29.jpg'},
+  {title: 'Exploring Black Sea Region', url: './web/English/30/index.html', img: './imgs/30.jpg'},
+  {title: 'Exploring Eastern Anatolia Region', url: './web/English/31/index.html', img: './imgs/31.jpg'},
+  {title: 'Exploring Southeastern Anatolia', url: './web/English/32/index.html', img: './imgs/32.jpg'},
+  {title: 'The Music and Dance of Türkiye', url: './web/English/33/index.html', img: './imgs/33.jpg'},
+  {title: 'Animal Adventures in Türkiye', url: './web/English/34/index.html', img: './imgs/34.jpg'},
+  {title: "Karamel and Türkiye's Treasures", url: './web/English/35/index.html', img: './imgs/35.jpg'},
+  {title: 'The Amazing Scientific Discoveries in Türkiye', url: './web/English/36/index.html', img: './imgs/36.jpg'},
+  {title: 'The World-Changing Events in Türkiye', url: './web/English/37/index.html', img: './imgs/37.jpg'},
+  {title: 'The Ancient Kingdoms of Türkiye', url: './web/English/38/index.html', img: './imgs/38.jpg'},
+  {title: 'The Four Seasons in Türkiye', url: './web/English/39/index.html', img: './imgs/39.jpg'},
+  {title: 'The Seven Wonders of Türkiye', url: './web/English/40/index.html', img: './imgs/40.jpg'},
+  {title: 'The Magic of Turkish Markets', url: './web/English/41/index.html', img: './imgs/41.jpg'},
+  {title: 'Visiting Turkish Families', url: './web/English/42/index.html', img: './imgs/42.jpg'},
+  {title: 'The Family Cultures of Türkiye', url: './web/English/43/index.html', img: './imgs/43.jpg'},
+  {title: 'The Eco-Friendly Journey Across Türkiye', url: './web/English/44/index.html', img: './imgs/44.jpg'},
+  {title: 'Exploration of Turkish Literature', url: './web/English/45/index.html', img: './imgs/45.jpg'},
+  {title: 'Turkish Mythology', url: './web/English/46/index.html', img: './imgs/46.jpg'},
+  {title: 'The Hidden Gems of Türkiye', url: './web/English/47/index.html', img: './imgs/47.jpg'},
+  {title: 'The Evolution of Turkish Art', url: './web/English/48/index.html', img: './imgs/48.jpg'},
+  {title: 'The Magical Gardens of Türkiye', url: './web/English/49/index.html', img: './imgs/49.jpg'},
+  {title: 'The Mystical Caves of Türkiye', url: './web/English/50/index.html', img: './imgs/50.jpg'},
+  {title: 'The Famous Bridges of Türkiye', url: './web/English/51/index.html', img: './imgs/51.jpg'},
+  {title: 'Turkish Maritime History', url: './web/English/52/index.html', img: './imgs/52.jpg'},
+  {title: 'Traditional Turkish Village Life', url: './web/English/53/index.html', img: './imgs/53.jpg'},
+];
+const grid = document.getElementById('books-grid');
+const noResults = document.getElementById('no-results');
+const searchInput = document.getElementById('book-search');
+
+function renderCards(list) {
+  // Remove old cards (keep no-results)
+  Array.from(grid.children).forEach(el => {
+    if (el !== noResults) el.remove();
+  });
+  if (list.length === 0) {
+    noResults.style.display = 'block';
+    return;
+  }
+  noResults.style.display = 'none';
+  list.forEach(b => {
+    const a = document.createElement('a');
+    a.className = 'book-card';
+    a.href = b.url;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.innerHTML = `
+      <img class="card-img" src="${b.img}" alt="${b.title}" loading="lazy">
+      <div class="card-body"><p class="card-title">${b.title}</p></div>
+    `;
+    grid.insertBefore(a, noResults);
+  });
+}
+
+renderCards(books);
+
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim().toLowerCase();
+  renderCards(q ? books.filter(b => b.title.toLowerCase().includes(q)) : books);
+});
+</script>
+
+</body>
+</html>
