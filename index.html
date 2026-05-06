@@ -165,6 +165,150 @@
       gap: 16px;
     }
   }
+  /* Footer Genel Stiller */
+.site-footer {
+  background-color: #111827; /* Koyu arka plan */
+  color: #e5e7eb;
+  padding: 40px 20px 20px;
+  font-family: system-ui, -apple-system, sans-serif;
+  border-top: 1px solid #374151;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+/* Logo */
+.footer-logo img {
+  max-width: 460px;
+  height: auto;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* Ekip Grid Yapısı */
+.footer-credits {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px 32px;
+  width: 100%;
+  text-align: center;
+}
+
+.credit-group {
+  flex: 1 1 200px;
+  max-width: 220px;
+}
+
+.credit-group h3 {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin: 0 0 6px;
+  color: #9ca3af;
+}
+
+.credit-group p {
+  font-size: 14px;
+  margin: 0;
+  line-height: 1.5;
+  color: #f3f4f6;
+}
+
+/* Yasal Uyarı */
+.footer-legal {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #374151;
+  text-align: center;
+  font-size: 12px;
+  color: #6b7280;
+  width: 100%;
+}
+
+/* Mobil Uyumluluk */
+@media (max-width: 768px) {
+  .footer-credits {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .credit-group {
+    max-width: 100%;
+  }
+}
+  
+/* Hero Banner Stilleri */
+.hero-banner {
+  position: relative;
+  width: 100%;
+  margin-bottom: 32px;
+  background-color: #0f172a; /* Yedek koyu arka plan */
+  overflow: hidden;
+}
+
+.hero-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 45vh; /* Ekran yüksekliğinin %45'i */
+  min-height: 280px;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Görselin üzerine hafif karartma overlay */
+.hero-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(180deg, rgba(15,23,42,0.3) 0%, rgba(15,23,42,0.7) 100%);
+  pointer-events: none;
+}
+
+/* Başlık İçerik Alanı */
+.hero-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 32px 24px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.hero-title {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 800;
+  margin: 0 0 8px;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.hero-subtitle {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: clamp(16px, 3vw, 22px);
+  font-weight: 500;
+  margin: 0;
+  opacity: 0.9;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+
+/* Mobil Uyumluluk */
+@media (max-width: 768px) {
+  .hero-image-wrapper { height: 35vh; min-height: 220px; }
+  .hero-content { padding: 24px 16px; }
+}
 </style>
 </head>
 <body>
@@ -348,6 +492,43 @@ languageSelect.addEventListener('change', renderCards);
 // İlk yükleme
 renderCards();
 </script>
+<footer class="site-footer">
+  <div class="footer-container">
+    <!-- Logo -->
+    <div class="footer-logo">
+      <img src="imgs/Houstonlogo.png" alt="Houston Logo">
 
+    </div>
+
+    <!-- Ekip Bilgileri -->
+    <div class="footer-credits">
+      <div class="credit-group">
+        <h3>PROJECT MANAGER</h3>
+        <p>ALİ KILIÇLIOĞLU</p>
+      </div>
+      <div class="credit-group">
+        <h3>ART DIRECTOR</h3>
+        <p>EKREM ACAR</p>
+      </div>
+      <div class="credit-group">
+        <h3>GRAPHIC DESIGN</h3>
+        <p>CEYHUN DOĞAN<br>EMRE BİŞGEN<br>CELAL KARASAKAL<br>HUSEYIN KONUKSEVEN</p>
+      </div>
+      <div class="credit-group">
+        <h3>EDITOR</h3>
+        <p>SAVAŞ KÜRŞAT YİRMİBEŞ<br>NİHAT BALLI</p>
+      </div>
+      <div class="credit-group">
+        <h3>WEB DESIGN</h3>
+        <p>SULEYMAN BEGENJOV</p>
+      </div>
+    </div>
+
+    <!-- Telif & Yasal Uyarı -->
+    <div class="footer-legal">
+      <p>MEB © - All Rights Reserved. Services are provided within the framework of the rules specified in the Privacy, Use and Copyright notice.</p>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
